@@ -43,14 +43,17 @@ Connect to your UDM-PRO samba server:
 `smb://<your_udm_ip>/Shared/`
 
 The defaults credentials are `user` and `password`.
-If you need more configuration options please refer to to [dperson/samba](https://hub.docker.com/r/dperson/samba) docker image.
+If you need more configuration options please refer to the [dperson/samba](https://hub.docker.com/r/dperson/samba) docker image.
 
 ## Issues
 
-1. `ERRO[0000] unable to get systemd connection to add healthchecks`
+`ERRO[0000] unable to get systemd connection to add healthchecks`
+
 Can be ignored. The `--no-healthcheck` option could be used to hide the error when using a newer podman version.
 
-2. `Error adding network: failed to create bridge "cni0": could not add "cni0": operation not supported`
+`Error adding network: failed to create bridge "cni0": could not add "cni0": operation not supported`
+
 Make sure to execute the [CNI plugins](https://github.com/boostchicken-dev/udm-utilities/blob/master/cni-plugins/05-install-cni-plugins.sh) and [CNI bridge](https://github.com/boostchicken-dev/udm-utilities/blob/master/on-boot-script/examples/udm-networking/on_boot.d/05-cni-bridge.sh) scripts first.
+
 
 ## ✌️
