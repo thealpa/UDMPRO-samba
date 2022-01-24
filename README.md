@@ -1,31 +1,56 @@
 # UDMPRO-samba
 
-**UDM PRO SAMBA SERVER using drive bay**
+Samba server on UDM-Pro using the drive bay.
 
-**foreshadowing**
+## Installation
 
-Hi, I recently acquired UDM PRO and wondered why can't I use this beautiful drive bay for something useful. Storing videos from proprietary cameras was not in my mind. So I begun to investigate and found out a great repo udm-utilities https://github.com/boostchicken/udm-utilities. I suggest you check it out because It will be useful in order to make this script work after reboot.
+1. Install [on_boot.d](https://github.com/boostchicken/udm-utilities) as well as [CNI plugins](https://github.com/boostchicken-dev/udm-utilities/blob/master/cni-plugins/05-install-cni-plugins.sh) and [CNI bridge](https://github.com/boostchicken-dev/udm-utilities/blob/master/on-boot-script/examples/udm-networking/on_boot.d/05-cni-bridge.sh) scripts using:
 
-This script can be run by itself but I indended it to be used with on-boot-script from udm-utilities repo and placed in on_boot.d folder. Im using dperson/samba docker image https://hub.docker.com/r/dperson/samba
+    ```bash
+    curl -fsL "https://raw.githubusercontent.com/boostchicken/udm-utilities/HEAD/on-boot-script/remote_install.sh" | /bin/sh
+    ```
 
-**START**
+2. Download [20-samba.sh](https://raw.githubusercontent.com/thealpa/UDMPRO-samba/udmsamba-master/20-samba.sh) to your UDM-Pro in `/mnt/data/on_boot.d`:
 
-In order to run this script it is important to check what partition label did your drive recieve. Command ls /dev should list all devices UDM-PRO sees and on that list you should see both sda and sdb drives. UbiOS formats your entire drive in NFTS filesystem and in one partition. You should look for a drive that has only one partition. Second drive is used by udm and shouldn't be disturbed. Your UDM PRO should name your drive partition in the same way my is (which is sda1) but check it beforehand.
+    ```bash
+    curl "https://raw.githubusercontent.com/thealpa/UDMPRO-samba/udmsamba-master/20-samba.sh" -o /mnt/data/on_boot.d/20-samba.sh
+    ```
 
-Having that warning in mind feel free to edit this script and it's variables.
+3. (Optional) Adjust any settings if you want:
 
-You can run it in the shell manually but also use on_boot.d folder for it to work after every reboot.
+    ```bash
+    vi /mnt/data/on_boot.d/20-samba.sh
+    ```
+    
+    I highly recommend changing the default credentials.  
 
-Now only thing for you to do is to connect to UDMPRO samba server.
+4. Set permissions to executable:
 
-**smb://<your_udm_ip>/shared/**
+    ```bash
+    chmod +x /mnt/data/on_boot.d/20-samba.sh
+    ```
 
-Currently there is no authentication in order to access this drive but I might do it later. Feel free to edit this script if you want to add it yourself.
+5. Run the script:
 
-This script doesn't work if honey pots are enabled, because they use ports required for this to work Feel free to issue any pull requests.
+    ```bash
+    sh /mnt/data/on_boot.d/20-samba.sh
+    ```
 
-#include <std_disclaimer.h>
+## Usage
 
-/*
-* You run this script at your own responsibility. It is not officialy supported
-*/
+Connect to your UDM-PRO samba server:
+
+`smb://<your_udm_ip>/Shared/`
+
+The defaults credentials are `user` and `password`.
+If you need more configuration options please refer to to [dperson/samba](https://hub.docker.com/r/dperson/samba) docker image.
+
+## Issues
+
+1. `ERRO[0000] unable to get systemd connection to add healthchecks`
+Can be ignored. The `--no-healthcheck` option could be used to hide the error when using a newer podman version.
+
+2. `Error adding network: failed to create bridge "cni0": could not add "cni0": operation not supported`
+Make sure to execute the [CNI plugins](https://github.com/boostchicken-dev/udm-utilities/blob/master/cni-plugins/05-install-cni-plugins.sh) and [CNI bridge](https://github.com/boostchicken-dev/udm-utilities/blob/master/on-boot-script/examples/udm-networking/on_boot.d/05-cni-bridge.sh) scripts first.
+
+## ✌️
