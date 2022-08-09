@@ -47,10 +47,14 @@ If you need more configuration options please refer to the [dperson/samba](https
 
 ## Issues
 
+If the **Internal Honeypot** feature is enabled, the port of the SMB server needs to be changed to a different one than 445 in `20-samba.sh`.
+
+<br />
 `ERRO[0000] unable to get systemd connection to add healthchecks`
 
 Can be ignored. The `--no-healthcheck` option could be used to hide the error when using a newer podman version.
 
+<br />
 `Error adding network: failed to create bridge "cni0": could not add "cni0": operation not supported`
 
 Make sure to execute the [CNI plugins](https://github.com/boostchicken-dev/udm-utilities/blob/master/cni-plugins/05-install-cni-plugins.sh) and [CNI bridge](https://github.com/boostchicken-dev/udm-utilities/blob/master/on-boot-script/examples/udm-networking/on_boot.d/05-cni-bridge.sh) scripts first.
