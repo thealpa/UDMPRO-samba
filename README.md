@@ -4,10 +4,10 @@ Samba server on UDM-Pro using the drive bay.
 
 ## Installation
 
-1. Install [on_boot.d](https://github.com/boostchicken/udm-utilities) as well as [CNI plugins](https://github.com/boostchicken-dev/udm-utilities/blob/master/cni-plugins/05-install-cni-plugins.sh) and [CNI bridge](https://github.com/boostchicken-dev/udm-utilities/blob/master/on-boot-script/examples/udm-networking/on_boot.d/05-cni-bridge.sh) scripts using:
+1. Install [on_boot.d](https://github.com/unifi-utilities/unifios-utilities/tree/main/on-boot-script) as well as [CNI plugins](https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/cni-plugins/05-install-cni-plugins.sh) and [CNI bridge](https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/on-boot-script/examples/udm-networking/on_boot.d/06-cni-bridge.sh) scripts using:
 
     ```bash
-    curl -fsL "https://raw.githubusercontent.com/boostchicken/udm-utilities/HEAD/on-boot-script/remote_install.sh" | /bin/sh
+    curl -fsL "https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/on-boot-script/remote_install.sh" | /bin/sh
     ```
 
 2. Download [20-samba.sh](https://raw.githubusercontent.com/thealpa/UDMPRO-samba/udmsamba-master/20-samba.sh) to your UDM-Pro in `/mnt/data/on_boot.d`:
